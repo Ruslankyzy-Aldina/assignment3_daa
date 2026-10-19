@@ -24,5 +24,17 @@ Provide exactly `m` edges. Vertices are numbered `0..n-1`; weights are integers.
 
 MST algorithms return a forest for disconnected graphs. DAG shortest paths start from all zero-in-degree vertices and support negative weights and path restoration.
 
-Benchmark, plots and report are pending.
+## Benchmark
+
+```shell
+java -Xmx2g -cp target/classes org.example.benchmark.Benchmark
+```
+
+Generates seeded graphs for five sizes and two densities. Checks reference values,
+MST agreement and topological orders. Saves 50 rows to `results/results.csv`
+with median times from five runs and operation counters. An optional argument sets the output path.
+
+Edge scans count traversal or relaxation work; graph reversal and topological
+sorting are excluded from SCC and shortest-path scan counters respectively.
+Shortest-path timing includes topological sorting. Plots and report are pending.
 
