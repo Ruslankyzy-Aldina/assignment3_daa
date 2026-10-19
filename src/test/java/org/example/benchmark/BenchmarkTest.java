@@ -102,7 +102,7 @@ class BenchmarkTest {
         Locale previous = Locale.getDefault();
         try {
             Locale.setDefault(Locale.GERMANY);
-            assertEquals("Kruskal,undirected,3,4,1.250000,7,3,5,0,42", row.toCsv());
+            assertEquals("Kruskal,undirected,3,4,1.250000,7.00,3,5,0,42", row.toCsv());
         } finally {
             Locale.setDefault(previous);
         }

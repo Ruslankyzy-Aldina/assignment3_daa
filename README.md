@@ -36,5 +36,14 @@ with median times from five runs and operation counters. An optional argument se
 
 Edge scans count traversal or relaxation work; graph reversal and topological
 sorting are excluded from SCC and shortest-path scan counters respectively.
-Shortest-path timing includes topological sorting. Plots and report are pending.
+Shortest-path timing includes topological sorting.
+
+## Plots
+
+```shell
+python -m pip install matplotlib numpy
+python scripts/plot_results.py
+```
+
+Three PNG charts are stored in `results/plots/`. The English PDF report is supplied separately with the charts embedded.
 
