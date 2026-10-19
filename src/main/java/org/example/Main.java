@@ -9,6 +9,8 @@ import org.example.algorithms.Kosaraju;
 import org.example.algorithms.Kahn;
 import org.example.algorithms.SccResult;
 import org.example.algorithms.TopologicalResult;
+import org.example.algorithms.DagShortestPath;
+import org.example.algorithms.ShortestPathResult;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -44,6 +46,13 @@ public class Main {
                     throw new IllegalStateException("Invalid topological order");
                 }
                 System.out.println("Kahn: " + topological.order());
+                ShortestPathResult paths = DagShortestPath.compute(graph);
+                System.out.printf("DagShortestPath: sum=%d, edgeScans=%d%n",
+                        paths.sumDistances(), paths.edgeScans());
+                for (int vertex = 0; vertex < graph.vertexCount(); vertex++) {
+                    System.out.printf("Vertex %d: distance=%d, path=%s%n",
+                            vertex, paths.distanceTo(vertex), paths.pathTo(vertex));
+                }
             }
             System.out.println("edgeScans=" + topological.edgeScans());
         }
