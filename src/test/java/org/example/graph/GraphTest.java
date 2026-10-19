@@ -15,6 +15,23 @@ class GraphTest {
     Path temp;
 
     @Test
+    void maintainsInDegreesForBothGraphTypes() {
+        Graph directed = new Graph(3, true);
+        directed.addEdge(0, 1, 1);
+        directed.addEdge(0, 1, 2);
+        directed.addEdge(1, 1, 3);
+        assertEquals(0, directed.inDegree(0));
+        assertEquals(3, directed.inDegree(1));
+        assertEquals(0, directed.inDegree(2));
+        assertThrows(IllegalArgumentException.class, () -> directed.inDegree(3));
+        Graph undirected = new Graph(2, false);
+        undirected.addEdge(0, 1, 1);
+        undirected.addEdge(0, 0, 2);
+        assertEquals(3, undirected.inDegree(0));
+        assertEquals(1, undirected.inDegree(1));
+    }
+
+    @Test
     void directedEdgeHasNoReverseEntry() {
         Graph graph = new Graph(2, true);
         graph.addEdge(0, 1, -5);

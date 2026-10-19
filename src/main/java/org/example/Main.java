@@ -5,6 +5,10 @@ import org.example.graph.GraphReader;
 import org.example.algorithms.Kruskal;
 import org.example.algorithms.Prim;
 import org.example.algorithms.MstResult;
+import org.example.algorithms.Kosaraju;
+import org.example.algorithms.Kahn;
+import org.example.algorithms.SccResult;
+import org.example.algorithms.TopologicalResult;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -27,6 +31,21 @@ public class Main {
             }
             printResult("Kruskal", kruskal);
             printResult("Prim", prim);
+        } else {
+            SccResult scc = Kosaraju.compute(graph);
+            System.out.printf("Kosaraju: components=%d, edgeScans=%d, maxDepth=%d%n",
+                    scc.components(), scc.edgeScans(), scc.maxDepth());
+            System.out.println("Component IDs: " + scc.componentOf());
+            TopologicalResult topological = Kahn.compute(graph);
+            if (topological.hasCycle()) {
+                System.out.println("Kahn: cycle detected");
+            } else {
+                if (!Kahn.isValidOrder(graph, topological.order())) {
+                    throw new IllegalStateException("Invalid topological order");
+                }
+                System.out.println("Kahn: " + topological.order());
+            }
+            System.out.println("edgeScans=" + topological.edgeScans());
         }
     }
 
