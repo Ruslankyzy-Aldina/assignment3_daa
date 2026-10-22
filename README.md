@@ -33,6 +33,7 @@ java -Xmx2g -cp target/classes org.example.benchmark.Benchmark
 Generates seeded graphs for five sizes and two densities. Checks reference values,
 MST agreement and topological orders. Saves 50 rows to `results/results.csv`
 with median times from five runs and operation counters. An optional argument sets the output path.
+The final `density` column labels `m = 4n` as `sparse` and `m = 20n` as `dense`.
 
 Edge scans count traversal or relaxation work; graph reversal and topological
 sorting are excluded from SCC and shortest-path scan counters respectively.

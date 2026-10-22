@@ -70,6 +70,8 @@ class BenchmarkTest {
             for (BenchmarkRow row : rows) {
                 assertEquals(reference.n(), row.n());
                 assertEquals(reference.m(), row.m());
+                assertEquals(reference.m() == 4 * reference.n() ? "sparse" : "dense", row.density());
+                assertTrue(row.toCsv().endsWith("," + row.density()));
                 assertTrue(row.timeMs() >= 0);
             }
             assertEquals(2L * reference.m(), rows.get(2).metrics().edgeScans());
@@ -102,7 +104,7 @@ class BenchmarkTest {
         Locale previous = Locale.getDefault();
         try {
             Locale.setDefault(Locale.GERMANY);
-            assertEquals("Kruskal,undirected,3,4,1.250000,7.00,3,5,0,42", row.toCsv());
+            assertEquals("Kruskal,undirected,3,4,1.250000,7,3,5,0,42,custom", row.toCsv());
         } finally {
             Locale.setDefault(previous);
         }
@@ -110,7 +112,7 @@ class BenchmarkTest {
         Benchmark.writeCsv(file, List.of(row));
         List<String> lines = Files.readAllLines(file);
         assertEquals(List.of(BenchmarkRow.HEADER, row.toCsv()), lines);
-        assertEquals(10, lines.get(0).split(",").length);
-        assertEquals(10, lines.get(1).split(",").length);
+        assertEquals(11, lines.get(0).split(",").length);
+        assertEquals(11, lines.get(1).split(",").length);
     }
 }
